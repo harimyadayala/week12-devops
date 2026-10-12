@@ -37,8 +37,8 @@ pipeline {
                 withCredentials([
                     usernamePassword(
                         credentialsId: 'dockerhub-credentials',
-                        usernameVariable: 'DOCKER_USERNAME',
-                        passwordVariable: 'DOCKER_PASSWORD'
+                        usernameVariable: 'dayalaharimya',
+                        passwordVariable: 'harimya@1234'
                     )
                 ]) {
                     bat 'docker login -u %DOCKER_USERNAME% -p %DOCKER_PASSWORD%'
