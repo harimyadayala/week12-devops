@@ -1,1 +1,4 @@
-flask
+Flask
+pytest
+selenium
+webdriver-manager
