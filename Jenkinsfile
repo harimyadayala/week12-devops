@@ -4,15 +4,20 @@ pipeline {
 
     stages {
 
+        stage('Install Dependencies') {
+            steps {
+                echo 'Installing Python dependencies'
+                bat 'python -m pip install -r requirements.txt'
+            }
+        }
+
         stage('Run Selenium Tests with pytest') {
             steps {
-                echo "Running Selenium Tests using pytest"
-
-                bat 'pip install -r requirements.txt'
+                echo 'Running Selenium Tests using pytest'
 
                 bat 'start /B python app.py'
 
-                bat 'ping 127.0.0.1 -n 5 > nul'
+                bat 'ping 127.0.0.1 -n 6 > nul'
 
                 bat 'python -m pytest test/test_registration.py -v'
             }
@@ -20,15 +25,14 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                echo "Build Docker Image"
-
+                echo 'Build Docker Image'
                 bat 'docker build -t kubdemoapp:v1 .'
             }
         }
 
         stage('Docker Login') {
             steps {
-                echo "Logging into Docker Hub"
+                echo 'Logging into Docker Hub'
 
                 withCredentials([
                     usernamePassword(
@@ -44,7 +48,7 @@ pipeline {
 
         stage('Push Docker Image to Docker Hub') {
             steps {
-                echo "Push Docker Image to Docker Hub"
+                echo 'Pushing Docker Image to Docker Hub'
 
                 bat 'docker tag kubdemoapp:v1 dayalaharimya/week8:kubeimage1'
 
@@ -54,7 +58,7 @@ pipeline {
 
         stage('Deploy to Kubernetes') {
             steps {
-                echo "Deploying application to Kubernetes"
+                echo 'Deploying application to Kubernetes'
 
                 bat 'kubectl apply -f deployment.yaml --validate=false'
 
@@ -70,6 +74,10 @@ pipeline {
 
         failure {
             echo 'Pipeline failed. Please check the logs.'
+        }
+
+        always {
+            echo 'Pipeline execution finished.'
         }
     }
 }
