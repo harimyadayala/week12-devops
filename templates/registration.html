@@ -7,60 +7,34 @@
     <title>Student Registration</title>
 </head>
 <body>
-    <h2>Student Registration Form</h2>
+    <h1>Student Registration Form</h1>
 
-    <form id="registrationForm">
-        <label for="name">Name:</label><br>
+    <form action="/register" method="POST" id="registrationForm">
+        <label for="name">Full Name:</label>
         <input type="text" id="name" name="name" required>
         <br><br>
 
-        <label for="student_id">Student ID:</label><br>
+        <label for="student_id">Student ID:</label>
         <input type="text" id="student_id" name="student_id" required>
         <br><br>
 
-        <label for="email">Email:</label><br>
+        <label for="email">Email:</label>
         <input type="email" id="email" name="email" required>
         <br><br>
 
-        <label for="year">Year:</label><br>
-        <input type="text" id="year" name="year" required>
+        <label for="year">Year:</label>
+        <select id="year" name="year" required>
+            <option value="">Select Year</option>
+            <option value="1st Year">1st Year</option>
+            <option value="2nd Year">2nd Year</option>
+            <option value="3rd Year">3rd Year</option>
+            <option value="4th Year">4th Year</option>
+        </select>
         <br><br>
 
-        <button type="submit">Register</button>
+        <button type="submit" id="submitBtn" name="sb">
+            Register
+        </button>
     </form>
-
-    <p id="message"></p>
-
-    <script>
-        function registerStudent(event) {
-            event.preventDefault();
-
-            let name = document.getElementById("name").value.trim();
-            let studentId = document.getElementById("student_id").value.trim();
-            let email = document.getElementById("email").value.trim();
-            let year = document.getElementById("year").value.trim();
-
-            let message = document.getElementById("message");
-
-            if (name === "" || studentId === "" ||
-                email === "" || year === "") {
-                message.textContent = "Please fill all fields.";
-                message.style.color = "red";
-                return;
-            }
-
-            message.textContent =
-                "Registration successful! Welcome, " + name + ".";
-            message.style.color = "green";
-
-            console.log("Student Name:", name);
-            console.log("Student ID:", studentId);
-            console.log("Email:", email);
-            console.log("Year:", year);
-        }
-
-        document.getElementById("registrationForm")
-            .addEventListener("submit", registerStudent);
-    </script>
 </body>
 </html>
