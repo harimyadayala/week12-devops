@@ -41,7 +41,7 @@ pipeline {
                         passwordVariable: 'harimya1234'
                     )
                 ]) {
-                    bat 'docker login -u %DOCKER_USERNAME% -p %DOCKER_PASSWORD%'
+                    bat 'docker login -u dayalaharimya -p harimya1234'
                 }
             }
         }
